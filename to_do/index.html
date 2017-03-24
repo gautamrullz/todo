@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="javascript/todo.js"></script>
+    <!-- <script src="javascript/home.js"></script> -->
+    <title></title>
+    <style media="screen">
+        #head {
+            text-align: center;
+            font-weight: bold;
+            font-size: 22px;
+        }
+        img {
+            width: 100%
+        }
+
+        #headImg {
+            width: 100px;
+            height: 50px;
+        }
+
+        #signupForm {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header well" id="head">
+            ToDo<img src="image/og.png" alt="image" id="headImg"></img>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-5 well">
+                <form id="signupForm" action="" method="GET">
+                    <div class="form-group">
+                        <lable>User_Name:</lable>
+                        <input type="text" class="form-control" placeholder="Enter User_Name" id="user_name" required=""/>
+                    </div>
+                    <div class="form-group">
+                        <lable>Email:</lable>
+                        <input type="email" class="form-control" placeholder="Enter Email" id="email" required=""/>
+                    </div>
+                    <div class="radio" id="aa">
+                        <label class="radio-inline">
+                            <input type="radio" name="gender" value="male" checked>Male
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="gender" value="female">Female
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <lable>PhoneNo:</lable>
+                        <input type="number" class="form-control" placeholder="Phone no." id="pno"/>
+                    </div>
+                    <div class="form-group">
+                        <lable>Password:</lable>
+                        <input type="Password" class="form-control" placeholder="Enter Password" id="pwd" required=""/>
+                    </div>
+                    <div class="form-group">
+                        <lable>Re-Enter Password:</lable>
+                        <input type="password" class="form-control" placeholder="Re-Enter Password" id="rpwd" required=""/>
+                    </div>
+                    <div>
+                        <input type="submit" class="btn btn-default" id="sendDetail" value="Sign Up">
+                        <input type="button" class="btn btn-default" id="back" value="Back">
+                    </div>
+                </form>
+
+                <form id="loginForm" action="" method="GET">
+                    <div class="form-group">
+                        <lable>Email:</lable>
+                        <input type="email"  class="form-control" placeholder="Enter Email" id="checkemail" required="" autofocus/>
+                    </div>
+                    <div class="form-group">
+                        <lable>Password:</lable>
+                        <input type="password" class="form-control" placeholder="Enter Password" id="checkpwd" required="" />
+                    </div>
+                    <div>
+                        <input type="submit" class="btn btn-default" id="login" value="Log In">
+                        <input type="button" class="btn btn-default" id="signup" value="Sign Up">
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-7 well">
+                <img src="image/og.png" alt="image"></img>
+            </div>
+        </div>
+        <div class="content">
+        </div>
+
+</body>
+
+</html>
