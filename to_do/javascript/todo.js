@@ -1,7 +1,7 @@
 var detail = {};
 $(document).ready(function() {
   if (sessionStorage.getItem("email") !== null) {
-      // console.log(sessionStorage.getItem('email'));
+      console.log(sessionStorage.getItem('email'));
       // event.preventDefault();
       callPage();
       return;
@@ -10,7 +10,7 @@ $(document).ready(function() {
     // checkSession();
     function callPage() {
         $.ajax({
-            url: "home.html",
+            url: "template/home.html",
             type: "GET",
             dataType: "html",
             success: function(response) {
@@ -33,31 +33,32 @@ $(document).ready(function() {
     // function checkSession() {
 
     // }
-    $("#signup").click(function() {
-        $("#loginForm").css({
-            "display": "none"
-        });
-        $("#signupForm").css({
-            "display": "block"
-        });
-    });
+    // $("#signup").click(function() {
+    //     $("#loginForm").css({
+    //         "display": "none"
+    //     });
+    //     $("#signupForm").css({
+    //         "display": "block"
+    //     });
+    // });
+    //
+    // $("#back").click(function() {
+    //     $("#signupForm").css({
+    //         "display": "none"
+    //     });
+    //     $("#loginForm").css({
+    //         "display": "block"
+    //     });
+    // });
 
-    $("#back").click(function() {
-        $("#signupForm").css({
-            "display": "none"
-        });
-        $("#loginForm").css({
-            "display": "block"
-        });
-    });
-
-    $("#logout").click(function() {
+    $(document).on("click","#logout",(function() {
         // console.log("asddd");
         sessionStorage.removeItem("email");
+        location.reload();
         return;
-    });
+    }));
 
-    $("#signupForm").submit(function(event) {
+    $(document).on("submit", "#signupForm",(function(event) {
         var user_name = $("#user_name").val();
         var email = $("#email").val();
         var gender = $("input:radio:checked").val();
@@ -117,9 +118,9 @@ $(document).ready(function() {
             alert(error);
         }
         event.preventDefault();
-    });
+    }));
 
-    $("#loginForm").submit(function(event) {
+  $(document).on("submit", "#loginForm",(function(event) {
         var email = $("#checkemail").val();
         var pwd = $("#checkpwd").val();
         // try {
@@ -164,7 +165,8 @@ $(document).ready(function() {
             // return;
         }
         event.preventDefault();
-    });
+    })
+  );
     // var checkEmail = function(email) {
     //   var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     //   return regex.test(email);
@@ -177,5 +179,147 @@ $(document).ready(function() {
         var regex = /^([7-9]{1}[0-9]{9})$/;
         return regex.test(phone_no);
     }
+//-------------------------------------------------------------------------------------------------
+
+
+
+    if (typeof window.location.origin === "undefined"){
+        window.location.origin = window.location.protocol + "//" + window.location.host;
+    }
+    // Utility (helper) functions
+    var utils = {
+
+        // Finds a handlebars template by id.
+        // Populates it with the passed in data
+        // Appends the generated html to div#order-page-container
+        renderPageTemplate: function(templateId, data) {
+            var _data = data || {};
+            var templateScript = $(templateId).html();
+            var template = Handlebars.compile(templateScript);
+            // Empty the container and append new content
+            $("#page-container").empty();
+
+            // Empty the container and append new content
+            $("#page-container").append(template(_data));
+        },
+
+        // If a hash can not be found in routes
+        // then this function gets called to show the 404 error page
+        pageNotFoundError: function() {
+
+            var data = {
+                errorMessage: "404 - Page Not Found"
+            };
+            this.renderPageTemplate("#error-page-template", data);
+        },
+
+        // Fetch json data from the given url
+        // @return promise
+        fetch: function(url, data) {
+            var _data = data || {};
+            return $.ajax({
+                context: this,
+                url: window.location.origin + "/" + url,
+                data: _data,
+                method: "GET",
+                dataType: "JSON"
+            });
+        }
+    };
+
+    /**
+     *  Router - Handles routing and rendering for the order pages
+     *
+     *  Summary:
+     *      - url hash changes
+     *      - render function checks routes for the hash changes
+     *      - function for that hash gets called and loads page content
+     */
+    var router = {
+
+        // An object of all the routes
+        routes: {},
+        init: function() {
+            console.log('router was created...');
+            this.bindEvents();
+
+            // Manually trigger a hashchange to start the router.
+            // This make the render function look for the route called "" (empty string)
+            // and call it"s function
+            $(window).trigger("hashchange");
+        },
+        bindEvents: function() {
+
+            // Event handler that calls the render function on every hashchange.
+            // The render function will look up the route and call the function
+            // that is mapped to the route name in the route map.
+            // .bind(this) changes the scope of the function to the
+            // current object rather than the element the event is bound to.
+            $(window).on("hashchange", this.render.bind(this));
+        },
+        // Checks the current url hash tag
+        // and calls the function with that name
+        // in the routes
+        render: function() {
+
+            // Get the keyword from the url.
+            var keyName = window.location.hash.split("/")[0];
+
+            // Grab anything after the hash
+            var url = window.location.hash;
+
+            // Hide whatever page is currently shown.
+            $("#page-container")
+                .find(".active")
+                    .hide()
+                        .removeClass("active");
+
+            // Call the the function
+            // by key name
+            if (this.routes[keyName]) {
+                this.routes[keyName](url);
+
+                // Render the error page if the
+                // keyword is not found in routes.
+            } else {
+                utils.pageNotFoundError();
+            }
+        }
+    };
+
+    var spaRoutes = {
+
+        // Default route (home page)
+        "#home": function(url) {
+            console.log('home was called...');
+            utils.renderPageTemplate("#home-page-template");
+        },
+        "#about": function(url) {
+            console.log('about was called...');
+            utils.renderPageTemplate("#about-page-template");
+        },
+        "#contact": function(url) {
+            console.log('contact was called...');
+            utils.renderPageTemplate("#contact-page-template");
+        },
+        "#login": function(url){
+          console.log('login was called...');
+          utils.renderPageTemplate("#login-page-template");
+        },
+        "#signup": function(url){
+          console.log('signup was called...');
+          utils.renderPageTemplate("#signup-page-template");
+        }
+    };
+
+    // Create a new instance of the router
+    var spaRouter = $.extend({}, router, {
+        routes: spaRoutes
+    });
+
+    spaRouter.init();
+    window.location.hash = "#home";
+
+
 
 });

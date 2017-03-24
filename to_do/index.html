@@ -2,40 +2,65 @@
 <html>
 
 <head>
+  <title>ToDo</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+
     <script src="javascript/todo.js"></script>
-    <!-- <script src="javascript/home.js"></script> -->
-    <title></title>
+
     <style media="screen">
-        #head {
-            text-align: center;
-            font-weight: bold;
-            font-size: 22px;
-        }
+
         img {
             width: 100%
         }
-
-        #headImg {
-            width: 100px;
-            height: 50px;
-        }
-
-        #signupForm {
+        /*#signupForm {
             display: none;
-        }
+        }*/
+        /*#nav{
+          top=0;
+        }*/
+        /*#menu{
+          float: right;
+          /*float: top;*/
+          /*margin-top:1%;*/
+          /*display:block;*/
+        /*}*/
     </style>
 </head>
 
 <body>
-
-    <div class="container">
+    <!-- <div class="container">
         <div class="header well" id="head">
             ToDo<img src="image/og.png" alt="image" id="headImg"></img>
-
-        </div>
+        </div> -->
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#home">ToDo</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#home">Home</a></li>
+          <li><a href="#about">Abouts</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="#login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- <div class="container">
         <div class="row">
             <div class="col-sm-5 well">
                 <form id="signupForm" action="" method="GET">
@@ -92,9 +117,109 @@
                 <img src="image/og.png" alt="image"></img>
             </div>
         </div>
-        <div class="content">
-        </div>
-
+      </div> -->
 </body>
+<div id="page-container"></div>
 
+<script id="home-page-template" type="text/x-handlebars-template">
+    <div id="home-page" class="page active">
+        <p>
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        </p>
+    </div>
+</script>
+
+<script id="about-page-template" type="text/x-handlebars-template">
+    <div id="about-page" class="page">
+        <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+            survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+            publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </p>
+    </div>
+</script>
+
+<script id="contact-page-template" type="text/x-handlebars-template">
+    <div id="contact-page" class="page">
+        <p>
+
+            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here,
+            content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.
+            Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+        </p>
+    </div>
+</script>
+
+<script id="login-page-template" type="text/x-handlebars-template">
+  <div class="container">
+        <div class="row">
+            <div class="col-sm-5 well">
+                <form id="loginForm" action="" method="GET">
+                    <div class="form-group">
+                        <lable>Email:</lable>
+                        <input type="email"  class="form-control" placeholder="Enter Email" id="checkemail" required="" autofocus/>
+                    </div>
+                    <div class="form-group">
+                        <lable>Password:</lable>
+                        <input type="password" class="form-control" placeholder="Enter Password" id="checkpwd" required="" />
+                    </div>
+                    <div>
+                        <input type="submit" class="btn btn-default" id="login" value="Log In">
+                        <!-- <input type="button" class="btn btn-default" id="signup" value="Sign Up"> -->
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-7 well">
+                <img src="image/og.png" alt="image"></img>
+            </div>
+        </div>
+      </div>
+</script>
+
+<script id="signup-page-template" type="text/x-handlebars-template">
+  <div class="container">
+        <div class="row">
+            <div class="col-sm-5 well">
+                <form id="signupForm" action="" method="GET">
+                    <div class="form-group">
+                        <lable>User_Name:</lable>
+                        <input type="text" class="form-control" placeholder="Enter User_Name" id="user_name" required=""/>
+                    </div>
+                    <div class="form-group">
+                        <lable>Email:</lable>
+                        <input type="email" class="form-control" placeholder="Enter Email" id="email" required=""/>
+                    </div>
+                    <div class="radio">
+                        <label class="radio-inline">
+                            <input type="radio" name="gender" value="male" checked>Male
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="gender" value="female">Female
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <lable>PhoneNo:</lable>
+                        <input type="number" class="form-control" placeholder="Phone no." id="pno"/>
+                    </div>
+                    <div class="form-group">
+                        <lable>Password:</lable>
+                        <input type="Password" class="form-control" placeholder="Enter Password" id="pwd" required=""/>
+                    </div>
+                    <div class="form-group">
+                        <lable>Re-Enter Password:</lable>
+                        <input type="password" class="form-control" placeholder="Re-Enter Password" id="rpwd" required=""/>
+                    </div>
+                    <div>
+                        <input type="submit" class="btn btn-default" id="sendDetail" value="Sign Up">
+                        <!-- <input type="button" class="btn btn-default" id="back" value="Back"> -->
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-7 well">
+                <img src="image/og.png" alt="image"></img>
+            </div>
+        </div>
+      </div>
+</script>
 </html>
