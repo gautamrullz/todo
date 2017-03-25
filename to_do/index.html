@@ -17,6 +17,16 @@
         img {
             width: 100%
         }
+        li:hover{
+          background-color:#428bca;
+          color: #000;
+        }
+
+
+        /*li:visited{
+          border-bottom: 2px solid #428bca;
+        }*/
+
         /*#signupForm {
             display: none;
         }*/
@@ -49,8 +59,8 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#home">Home</a></li>
-          <li><a href="#about">Abouts</a></li>
+          <li ><a href="#home" active>Home</a></li>
+          <li ><a href="#about">Abouts</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -60,6 +70,7 @@
       </div>
     </div>
   </nav>
+
   <!-- <div class="container">
         <div class="row">
             <div class="col-sm-5 well">
@@ -83,7 +94,7 @@
                     <div class="form-group">
                         <lable>PhoneNo:</lable>
                         <input type="number" class="form-control" placeholder="Phone no." id="pno"/>
-                    </div>
+                    </div>home
                     <div class="form-group">
                         <lable>Password:</lable>
                         <input type="Password" class="form-control" placeholder="Enter Password" id="pwd" required=""/>
@@ -119,13 +130,16 @@
         </div>
       </div> -->
 </body>
-<div id="page-container"></div>
+<div id="page-container">
+  <p>
+      <q><b>Welcome to ToDo app</b></q>
+  </p>
+</div>
 
 <script id="home-page-template" type="text/x-handlebars-template">
-    <div id="home-page" class="page active">
+    <div id="home-page" class="page">
         <p>
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            <q><b>Welcome to ToDo app</b></q>
         </p>
     </div>
 </script>
@@ -133,9 +147,7 @@
 <script id="about-page-template" type="text/x-handlebars-template">
     <div id="about-page" class="page">
         <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-            survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-            publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            <q><b>About</b></q>
         </p>
     </div>
 </script>
@@ -143,10 +155,9 @@
 <script id="contact-page-template" type="text/x-handlebars-template">
     <div id="contact-page" class="page">
         <p>
-
-            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here,
-            content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.
-            Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+            <q><b>  Contect Us On facebook</b></q>
+            <br>
+            <a altr="gautam kumar" href="https://www.facebook.com/gautamrullz" target="_blank">https://www.facebook.com/gautamrullz</a>
         </p>
     </div>
 </script>

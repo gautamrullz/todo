@@ -1,10 +1,11 @@
 var detail = {};
 $(document).ready(function() {
+
   if (sessionStorage.getItem("email") !== null) {
       console.log(sessionStorage.getItem('email'));
       // event.preventDefault();
       callPage();
-      return;
+      // return;
   }
     // $.ajax();
     // checkSession();
@@ -25,36 +26,12 @@ $(document).ready(function() {
             }
         })
     }
-    // $("#logout").click(function() {
-    //   // console.log("asddd");
-    //   sessionStorage.removeItem("email");
-    //   return;
-    // });
-    // function checkSession() {
-
-    // }
-    // $("#signup").click(function() {
-    //     $("#loginForm").css({
-    //         "display": "none"
-    //     });
-    //     $("#signupForm").css({
-    //         "display": "block"
-    //     });
-    // });
-    //
-    // $("#back").click(function() {
-    //     $("#signupForm").css({
-    //         "display": "none"
-    //     });
-    //     $("#loginForm").css({
-    //         "display": "block"
-    //     });
-    // });
-
-    $(document).on("click","#logout",(function() {
+      $(document).on("click","#logout",(function() {
         // console.log("asddd");
         sessionStorage.removeItem("email");
-        location.reload();
+      // window.location.origin = window.location.protocol + "//" + window.location.host;
+      window.location.hash = "#home";
+      location.reload();
         return;
     }));
 
@@ -83,7 +60,8 @@ $(document).ready(function() {
                 if (localStorage.getItem("detail") == null) {
                     console.log("null");
                     detail[email] = list_detail;
-                    if (typeof(Storage) !== "undefined") {
+                    if (typeof(Storage) !== "undefined")
+                    {
                         localStorage.setItem('detail', JSON.stringify(detail));
                         // alert("thanks for Sign Up");
                         event.preventDefault();
@@ -91,7 +69,9 @@ $(document).ready(function() {
                         sessionStorage.setItem("email", email);
                         callPage();
                         return;
-                    } else {
+                    }
+                    else
+                    {
                         throw "localStorage not found";
                     }
                 } else {
@@ -181,8 +161,6 @@ $(document).ready(function() {
     }
 //-------------------------------------------------------------------------------------------------
 
-
-
     if (typeof window.location.origin === "undefined"){
         window.location.origin = window.location.protocol + "//" + window.location.host;
     }
@@ -193,6 +171,7 @@ $(document).ready(function() {
         // Populates it with the passed in data
         // Appends the generated html to div#order-page-container
         renderPageTemplate: function(templateId, data) {
+          console.log(templateId);
             var _data = data || {};
             var templateScript = $(templateId).html();
             var template = Handlebars.compile(templateScript);
@@ -215,16 +194,16 @@ $(document).ready(function() {
 
         // Fetch json data from the given url
         // @return promise
-        fetch: function(url, data) {
-            var _data = data || {};
-            return $.ajax({
-                context: this,
-                url: window.location.origin + "/" + url,
-                data: _data,
-                method: "GET",
-                dataType: "JSON"
-            });
-        }
+        // fetch: function(url, data) {
+        //     var _data = data || {};
+        //     return $.ajax({
+        //         context: this,
+        //         url: window.location.origin + "/" + url,
+        //         data: _data,
+        //         method: "GET",
+        //         dataType: "JSON"
+        //     });
+        // }
     };
 
     /**
@@ -273,6 +252,9 @@ $(document).ready(function() {
                 .find(".active")
                     .hide()
                         .removeClass("active");
+                        // $(this).class('active');
+                        // window.location.hash = "#home";
+
 
             // Call the the function
             // by key name
@@ -293,6 +275,7 @@ $(document).ready(function() {
         "#home": function(url) {
             console.log('home was called...');
             utils.renderPageTemplate("#home-page-template");
+
         },
         "#about": function(url) {
             console.log('about was called...');
@@ -318,7 +301,7 @@ $(document).ready(function() {
     });
 
     spaRouter.init();
-    window.location.hash = "#home";
+    // window.location.hash = "#home";
 
 
 
