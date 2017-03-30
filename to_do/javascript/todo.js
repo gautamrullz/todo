@@ -40,7 +40,7 @@ $(document).ready(function() {
         var email = $("#email").val();
         var gender = $("input:radio:checked").val();
         var phone_no = $("#pno").val();
-        var pass = $("#pwd").val();
+        var pass = $("#pwd").val();home
         var rpass = $("#rpwd").val();
         var list_detail = {};
         list_detail["user_name"] = user_name;
@@ -161,9 +161,9 @@ $(document).ready(function() {
     }
 //-------------------------------------------------------------------------------------------------
 
-    if (typeof window.location.origin === "undefined"){
-        window.location.origin = window.location.protocol + "//" + window.location.host;
-    }
+    // if (typeof window.location.origin === "undefined"){
+    //     window.location.origin = window.location.protocol + "//" + window.location.host;
+    // }
     // Utility (helper) functions
     var utils = {
 
@@ -243,18 +243,15 @@ $(document).ready(function() {
 
             // Get the keyword from the url.
             var keyName = window.location.hash.split("/")[0];
-
+            console.log(keyName);
             // Grab anything after the hash
             var url = window.location.hash;
-
+            console.log(url);
             // Hide whatever page is currently shown.
             $("#page-container")
                 .find(".active")
                     .hide()
                         .removeClass("active");
-                        // $(this).class('active');
-                        // window.location.hash = "#home";
-
 
             // Call the the function
             // by key name
