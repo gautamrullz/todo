@@ -1,13 +1,14 @@
 var express = require("express"); //Http  server but framework  node js i will create http server (web services,REST API)
 var app = express();
-var port = 8081;
+var port = process.env.PORT||8081;
+var cors = require("cors");
 var bodyParser = require("body-parser");
 var validator = require('express-validator');
+app.use(cors());
 // var regex = require("regex");
 // var check_email = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 // var check_password = /^.*(?=.{8,})(?=.*\d)(?=.*[a-z]*[A-Z])(?=.*[@#$%&_]).*$/;
 // var check_phone_no = /^([7-9]{1}[0-9]{9})$/;
-
 var firebase = require("firebase").initializeApp({
     apiKey: "AIzaSyBew-jpTAbfAAi-dErmOLUZOHoRKHwEBjk",
     authDomain: "todo-ea1d9.firebaseapp.com",
@@ -20,10 +21,11 @@ var firebase = require("firebase").initializeApp({
 var ref = firebase.database().ref();
 
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(validator());
 
 app.post("/login", function(request, response) {
-
+console.log(request.body);
     var email = request.body.email;
     var password = request.body.password;
     if (email == "" || password == "") {
@@ -112,17 +114,28 @@ app.post("/signup", function(request, response) {
     // request.body Post Call  use to Bind Body Data
     var email = request.body.email;
     var password = request.body.password;
-
+    console.log(email);
     request.checkBody("email", "Enter a valid email address.").isEmail();
-    request.checkBody("password", "Enter a valid password").optional().matches(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]*[A-Z])(?=.*[@#$%&_]).*$/);
+    request.checkBody("password", "Enter a valid password").matches(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]*[A-Z])(?=.*[@#$%&_]).*$/);
     request.checkBody('user_name', '4 to 20 characters required').len(4, 20);
-    request.checkBody('phone_no', ' 10 characters required').len(2, 10);
+    request.checkBody('phone_no', ' 10 characters required').matches(/^([7-9]{1}[0-9]{9})$/);
     var errors = request.validationErrors();
     console.log(errors);
     if (errors) {
         response.send(errors);
         return;
     }
+    ref.orderByChild("email").equalTo(email).once("value", function(data) {
+      if(data.val()!==null)
+      {
+      data.forEach(function(snap) {
+        response.send({
+          "status":false,
+          "message":"email already in use"
+        });
+        return;
+      });
+    }else {
     var ad = request.body;
     ref.push().setWithPriority(ad, 0 - Date.now());
     ref.once("value", function(data) {
@@ -132,7 +145,8 @@ app.post("/signup", function(request, response) {
             "message": "registration Successfull"
         });
     });
-
+  }
+});
 });
 
 var server = app.listen(port, function() {
